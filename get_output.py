@@ -19,7 +19,7 @@ import numpy as np
 
 from PIL import Image
 
-image = Image.open('input.jpg')
+image = Image.open('input.png')
 #npimg = np.array(image, dtype=np.float32) / 255
 img1ch = image.convert('L')
 #plt.imshow(img1ch)

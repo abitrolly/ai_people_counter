@@ -167,14 +167,18 @@ class UNet(nn.Module):
         """Forward pass."""
         # use the same max pooling kernel size (2, 2) across the network
         pool = nn.MaxPool2d(2)
+        print(pool(input).size())
 
         # downsampling
         block1 = self.block1(input)
         pool1 = pool(block1)
+        print(pool1.size())
         block2 = self.block2(pool1)
         pool2 = pool(block2)
+        print(pool2.size())
         block3 = self.block3(pool2)
         pool3 = pool(block3)
+        print(pool3.size())
 
         # upsampling
         block4 = self.block4(pool3, block3)
