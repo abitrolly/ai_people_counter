@@ -19,14 +19,15 @@ import numpy as np
 
 from PIL import Image
 
-image =Image.open('input.jpg')
-npimg = np.array(image, dtype=np.float32) / 255
-#plt.imshow(image)
+image = Image.open('input.jpg')
+#npimg = np.array(image, dtype=np.float32) / 255
+img1ch = image.convert('L')
+#plt.imshow(img1ch)
 #plt.show()
 
 # Get output
 from torchvision.transforms import ToTensor
-tensorimg = ToTensor()(image).unsqueeze(0)
+tensorimg = ToTensor()(img1ch).unsqueeze(0)
 out = network(tensorimg)
 
 print(out)
