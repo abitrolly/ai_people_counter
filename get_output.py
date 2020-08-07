@@ -26,7 +26,7 @@ npimg = np.array(image, dtype=np.float32) / 255
 
 # Get output
 from torchvision.transforms import ToTensor
-tensorimg = ToTensor()(image)
+tensorimg = ToTensor()(image).unsqueeze(0)
 out = network(tensorimg)
 
 print(out)
