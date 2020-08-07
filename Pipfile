@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+wget = ">=3.2"
+h5py = ">=2.9.0"
+numpy = ">=1.16.4"
+matplotlib = ">=3.0.3"
+scipy = ">=1.2.1"
+typing = ">=3.7.4"
+torch = ">=1.0.1"
+torchvision = ">=0.3.0"
+click = ">=7.0"
+Pillow = ">=6.1.0"
+
+[requires]
+python_version = "3.8"
