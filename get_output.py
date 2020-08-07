@@ -26,8 +26,13 @@ img1ch = image.convert('L')
 #plt.show()
 
 # Get output
-from torchvision.transforms import ToTensor
+from torchvision.transforms import ToTensor, ToPILImage
 tensorimg = ToTensor()(img1ch).unsqueeze(0)
 out = network(tensorimg)
 
+print(out.shape)
 print(out)
+
+#plt.imshow(out.detach().numpy().squeeze(0))
+plt.imshow(ToPILImage()(out[0]))
+plt.show()
