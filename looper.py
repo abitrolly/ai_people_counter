@@ -56,6 +56,7 @@ class Looper():
         # set a proper mode: train or eval
         self.network.train(not self.validation)
 
+        # loop over batch samples
         for image, label in self.loader:
             # move images and labels to given device
             image = image.to(self.device)
@@ -77,17 +78,15 @@ class Looper():
                 loss.backward()
                 self.optimizer.step()
 
-            # loop over batch samples
-            for true, predicted in zip(label, result):
-                # integrate a density map to get no. of objects
-                # note: density maps were normalized to 100 * no. of objects
-                #       to make network learn better
-                true_counts = torch.sum(true).item() / 100
-                predicted_counts = torch.sum(predicted).item() / 100
+            # integrate a density map to get no. of objects
+            # note: density maps were normalized to 100 * no. of objects
+            #       to make network learn better
+            true_counts = torch.sum(label[0]).item() / 100
+            predicted_counts = torch.sum(result[0]).item() / 100
 
-                # update current epoch results
-                self.true_values.append(true_counts)
-                self.predicted_values.append(predicted_counts)
+            # update current epoch results
+            self.true_values.append(true_counts)
+            self.predicted_values.append(predicted_counts)
 
         # calculate errors and standard deviation
         self.update_errors()
