@@ -4,7 +4,7 @@ import torch
 
 import model
 
-# Load model
+print('# Load model')
 network = torch.nn.DataParallel(
         model.UNet(
             input_filters=1,
@@ -13,7 +13,7 @@ network = torch.nn.DataParallel(
         ))
 network.load_state_dict(torch.load("ucsd_UNet.pth"))
 
-# Load input image
+print('# Load input image')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -25,7 +25,7 @@ img1ch = image.convert('L')
 #plt.imshow(img1ch)
 #plt.show()
 
-# Get output
+print("# Get output")
 from torchvision.transforms import ToTensor, ToPILImage
 tensorimg = ToTensor()(img1ch).unsqueeze(0)
 out = network(tensorimg)
@@ -33,6 +33,13 @@ out = network(tensorimg)
 print(out.shape)
 print(out)
 
+print("# Count results")
+# density maps were normalized to 100 * no. of objects 
+# to make network learn better 
+#print(len(out), type(out))
+print(torch.sum(out[0]).item() / 100)
+
+print("# Plot output")
 #plt.imshow(out.detach().numpy().squeeze(0))
 plt.imshow(ToPILImage()(out[0]))
 plt.show()
