@@ -19,7 +19,13 @@ import numpy as np
 
 from PIL import Image
 
-image = Image.open('input.png')
+import sys
+
+if sys.argv[1:]:
+    image = Image.open(sys.argv[1])
+else:
+    sys.exit('usage: ' + sys.argv[0] + ' <input.png>')
+
 #npimg = np.array(image, dtype=np.float32) / 255
 img1ch = image.convert('L')
 #plt.imshow(img1ch)
@@ -34,8 +40,8 @@ print(out.shape)
 print(out)
 
 print("# Count results")
-# density maps were normalized to 100 * no. of objects 
-# to make network learn better 
+# density maps were normalized to 100 * no. of objects
+# to make network learn better
 #print(len(out), type(out))
 print(torch.sum(out[0]).item() / 100)
 

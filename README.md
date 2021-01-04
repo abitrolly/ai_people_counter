@@ -70,3 +70,18 @@ Options:
 ## Requirements
 
 To install required python packages run: `pip3 install -r requirements.txt`.
+
+## Scenario: Counting People
+
+Train with UCSD pedestrian dataset using UNet architecture.
+```
+python get_data.py --dataset ucsd
+python train.py -d ucsd -n UNet
+```
+This saves trained model in `ucsd_UNet.pth` file.
+
+Now use `get_output.py` to calculate the number of people in a given image
+using inference from the trained model.
+```
+python get_output.py image.png
+```
